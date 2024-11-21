@@ -5,6 +5,7 @@ import (
 	"strings"
 	"sync"
 	"time"
+	"regexp"
 
 	"github.com/Shopify/ghostferry"
 	"github.com/sirupsen/logrus"
@@ -196,6 +197,10 @@ func (this *CopydbFerry) createTableOnTarget(database, table string) error {
 		1,
 	)
 
+        // Remove ROW_FORMAT=COMPRESSED case-insensitively
+	rowFormatRegex := regexp.MustCompile(`(?i)\s+ROW_FORMAT\s*=\s*COMPRESSED`)
+	createTableQueryReplaced = rowFormatRegex.ReplaceAllString(createTableQueryReplaced, "")
+	
 	if createTableQueryReplaced == createTableQuery {
 		return fmt.Errorf("no effect on replacing the create table <table> with create table <db>.<table> query on query: %s", createTableQuery)
 	}
