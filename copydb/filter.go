@@ -1,6 +1,7 @@
 package copydb
 
 import "github.com/Shopify/ghostferry"
+import "strings"
 
 type StaticTableFilter struct {
 	Dbs            []string
@@ -12,7 +13,7 @@ type StaticTableFilter struct {
 
 func contains(s []string, item string) bool {
 	for _, v := range s {
-		if item == v {
+		if item == v || (strings.HasSuffix(v, "_") && strings.HasPrefix(item, v)) {
 			return true
 		}
 	}
