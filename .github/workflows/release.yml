@@ -17,7 +17,7 @@ jobs:
       - name: Setup Go
         uses: actions/setup-go@v5
         with:
-          go-version: 1.16
+          go-version: 1.24.1
 
       - name: Building Ghostferry
         run: .github/workflows/build-deb.sh
@@ -37,7 +37,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           pattern: debs-${{ github.sha }}-*
-+         merge-multiple: true
+          merge-multiple: true
       - name: shasum
         shell: bash
         run: |

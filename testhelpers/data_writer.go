@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"math/rand"
 	"sync"
-
-	sql "github.com/Shopify/ghostferry/sqlwrapper"
+	"time"
 
 	sq "github.com/Masterminds/squirrel"
+	sql "github.com/Shopify/ghostferry/sqlwrapper"
 )
 
 var dataletters = []rune("abcdefghijklmnopqrstuvwxyz")
@@ -176,6 +176,8 @@ func (this *MixedActionDataWriter) WriteData(i int) {
 		if err != nil {
 			panic(err)
 		}
+
+		time.Sleep(10 * time.Millisecond)
 	}
 }
 
